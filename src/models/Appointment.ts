@@ -3,24 +3,24 @@ import User from './User';
 
 @Entity('appointments')
 class Appointment {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column()
-    provider_id: string;
+  @Column()
+  provider_id: string;
 
-    @ManyToOne(() => User)
-    @JoinColumn({ name: 'provider_id' })
-    provider: User;
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'provider_id' })
+  provider: User;
 
-    @Column('timestamp without time zone')
-    date: Date
+  @Column('timestamp without time zone')
+  date: Date
 
-    @CreateDateColumn()
-    created_at: Date
+  @CreateDateColumn()
+  created_at: Date
 
-    @UpdateDateColumn()
-    updated_at: Date
+  @UpdateDateColumn()
+  updated_at: Date
 }
 
 export default Appointment;
