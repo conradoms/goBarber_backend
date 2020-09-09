@@ -2,6 +2,7 @@ import { getRepository } from 'typeorm';
 import User from '../models/User';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
+import auth from '../config/auth';
 
 interface Request {
   email: string,
@@ -28,11 +29,13 @@ class AuthenticateUserService {
       throw new Error('Incorrect e-mail/password combination.');
     }
 
+    const { secret, expiresIn } = auth.jwt;
+
     const token = sign({},
-      '8e5b5a9c695f118c8acb2cd49118b99a', // md5Online - usar para gerar a palavra secreta
+      secret,
       {
         subject: user.id, // Sempre o id do usuario
-        expiresIn: '1d'
+        expiresIn
       });
 
     return {
